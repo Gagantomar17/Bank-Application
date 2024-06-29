@@ -1,15 +1,19 @@
 import java.sql.* ;
-public class connection {
+public class  Connect {
 
     Connection c ;
-    public connection(){
+    Statement s ;
+    public Connect(){
+        String url = "jdbc:mysql:///bankManagement" ;
+        String userName = "root" ;
+        String password = "Gagan@123" ;
         try {
-            Class.forName(com.mysql.cj.jdbc.Driver);
+            Class.forName("com.mysql.cj.jdbc.Driver");
             //connection string
-            c = DriverManager.getConnection("jdbc:mysql:///bankManagement","root" , "Gagan@123");
+            c = DriverManager.getConnection( url ,userName , password);
             // create statement
             s = c.createStatement();
-        } catch (Exception e){
+        } catch (Exception e){ 
             System.out.println(e);
         }
     }

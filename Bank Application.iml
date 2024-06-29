@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Python" name="Python">
+      <configuration sdkName="Python 3.11" />
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -7,5 +12,61 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jcalendar-tz-1.3.3-4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/mysql-connector-java-8.0.28.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/experimental" />
+          <root url="file://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/source" />
+          <root url="file://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/swt" />
+          <root url="file://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/tests" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/hamcrest-core-1.3.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/jcommon-1.0.23.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/jfreechart-1.0.19-experimental.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/jfreechart-1.0.19-swt.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/jfreesvg-2.0.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/junit-4.11.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/orsoncharts-1.4-eval-nofx.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/orsonpdf-1.6-eval.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/servlet.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/jfreechart-1.0.19/jfreechart-1.0.19/lib/swtgraphics2d.jar!/" />
+          <root url="file://$MODULE_DIR$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Python 3.11 interpreter library" level="application" />
   </component>
 </module>
