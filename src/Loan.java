@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class Loan extends JFrame implements ActionListener {
 
     private String pinNumber , cardNumber , loanTypeText ;
-    private JLabel image , heading , type , amount , tenureLabel , interestLabel , interestAmount;
+    private JLabel logoImage , image , heading2 , heading , type , amount , tenureLabel , interestLabel , interestAmount;
     private JTextField  amountText  ;
     private JButton exit , submit , calculate;
     private JComboBox<String>  tenureText ;
@@ -25,30 +25,44 @@ public class Loan extends JFrame implements ActionListener {
         getContentPane().setBackground(new Color(32, 107, 150));
         setLayout(null);
 
-        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
-        Image img3 = i3.getImage();
-        Image img4 = img3.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
-        ImageIcon i4 = new ImageIcon(img4);
-
-        image = new JLabel(i4);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
+        Image img1 = i1.getImage();
+        Image img2 = img1.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
+        ImageIcon i2 = new ImageIcon(img2);
+        image = new JLabel(i2);
         image.setBounds(0 , 0,1000 , 700 );
         add(image);
 
-        heading = new JLabel(" Loan Application ");
-        heading.setBounds(300 , 30 , 450 , 50);
-        heading.setFont(new Font("",Font.BOLD , 35));
-        heading.setForeground(Color.BLACK);
+        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
+        Image img3 = i3.getImage();
+        Image img4 = img3.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+        ImageIcon i4 = new ImageIcon(img4);
+
+        logoImage = new JLabel(i4);
+        logoImage.setBounds(20, 20, 65, 65);
+        image.add(logoImage);
+
+        heading = new JLabel("Lena Dena Bank Pvt Ltd");
+        heading.setBounds(280, 20, 500, 50);
+        heading.setFont(new Font("Aerial", Font.BOLD, 40));
+        heading.setForeground(Color.WHITE);
         image.add(heading);
 
+        heading2 = new JLabel(" Loan Application ");
+        heading2.setBounds(400 , 70 , 450 , 50);
+        heading2.setFont(new Font("",Font.BOLD , 25));
+        heading2.setForeground(Color.BLACK);
+        image.add(heading2);
+
         type = new JLabel(" Select Type  ");
-        type.setBounds(100 , 100 , 450 , 40);
+        type.setBounds(100 , 150 , 450 , 40);
         type.setFont(new Font("",Font.BOLD , 20));
         type.setForeground(Color.BLACK);
         image.add(type);
 
         // Loan type radio buttons
         personalLoan = new JRadioButton("Personal Loan");
-        personalLoan.setBounds(100, 150, 200, 30);
+        personalLoan.setBounds(100, 200, 200, 30);
         personalLoan.setFont(new Font("", Font.PLAIN, 15));
         personalLoan.setForeground(Color.BLACK);
         image.add(personalLoan);
@@ -60,7 +74,7 @@ public class Loan extends JFrame implements ActionListener {
         image.add(homeLoan);
 
         carLoan = new JRadioButton("Car Loan");
-        carLoan.setBounds(350, 150, 200, 30);
+        carLoan.setBounds(350, 200, 200, 30);
         carLoan.setFont(new Font("", Font.PLAIN, 15));
         carLoan.setForeground(Color.BLACK);
         image.add(carLoan);
@@ -81,14 +95,14 @@ public class Loan extends JFrame implements ActionListener {
 
 
         amount = new JLabel("Enter Amount");
-        amount.setBounds(100 , 300 , 200 , 50);
+        amount.setBounds(100 , 330 , 200 , 50);
         amount.setFont(new Font("",Font.BOLD , 20));
         amount.setForeground(Color.BLACK);
         image.add(amount);
 
         amountText = new JTextField();
-        amountText.setBounds(350, 300, 200, 30);
-        amountText.setFont(new Font("", Font.PLAIN, 15));
+        amountText.setBounds(270, 345, 200, 30);
+        amountText.setFont(new Font("", Font.PLAIN, 20));
         image.add(amountText);
 
         tenureLabel = new JLabel("Select Time Period");
@@ -99,18 +113,18 @@ public class Loan extends JFrame implements ActionListener {
 
         String[] tenureOptions = {"1 year", "2 years", "3 years", "4 years", "5 years" , "10 years"};
         tenureText = new JComboBox<>(tenureOptions);
-        tenureText.setBounds(300, 400, 200, 30);
-        tenureText.setFont(new Font("", Font.PLAIN, 15));
+        tenureText.setBounds(300, 420, 200, 30);
+        tenureText.setFont(new Font("", Font.PLAIN, 20));
         image.add(tenureText);
 
         interestLabel = new JLabel("Interest Rate : 0 %");
-        interestLabel.setBounds(100, 500, 200, 30);
+        interestLabel.setBounds(100, 480, 200, 30);
         interestLabel.setFont(new Font("", Font.BOLD, 20));
         interestLabel.setForeground(Color.BLACK);
         image.add(interestLabel);
 
         interestAmount = new JLabel("Interest Amount : 0 ");
-        interestAmount.setBounds(100, 560, 400, 30);
+        interestAmount.setBounds(100, 520, 400, 30);
         interestAmount.setFont(new Font("", Font.BOLD, 20));
         interestAmount.setForeground(Color.BLACK);
         image.add(interestAmount);

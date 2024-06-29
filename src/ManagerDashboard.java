@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ManagerDashboard extends JFrame implements ActionListener {
-    private JLabel totalUsersLabel, logoImage, heading , topRichestLabel , userDetails , image , totalDepositsLabel ;
+    private JLabel loanTableLabel , topRichest , totalUsersLabel, logoImage, heading , topRichestLabel , userDetails , image , totalDepositsLabel ;
     private JComboBox<String> userDropdown;
     private JTextArea userDetailsArea;
     private JTable loanTable ;
@@ -35,38 +35,44 @@ public class ManagerDashboard extends JFrame implements ActionListener {
         image.setBounds(0 , 0,1000 , 700 );
         add(image);
 
-        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/card.png"));
+        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
         Image img3 = i3.getImage();
-        Image img4 = img3.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image img4 = img3.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         ImageIcon i4 = new ImageIcon(img4);
 
-        logoImage = new JLabel(i2);
-        logoImage.setBounds(10, 10, 50, 50);
+        logoImage = new JLabel(i4);
+        logoImage.setBounds(10, 10, 80, 80);
         image.add(logoImage);
 
         heading = new JLabel("Lena Dena Bank Pvt Ltd");
-        heading.setBounds(300, 40, 500, 60);
-        heading.setFont(new Font("Aerial", Font.BOLD, 30));
+        heading.setBounds(280, 20, 500, 50);
+        heading.setFont(new Font("Aerial", Font.BOLD, 40));
         heading.setForeground(Color.WHITE);
         image.add(heading);
 
         // Total Users Label
         totalUsersLabel = new JLabel("Total Active Users: ");
-        totalUsersLabel.setBounds(50, 100, 400, 40);
-        totalUsersLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        totalUsersLabel.setBounds(50, 500, 200, 30);
+        totalUsersLabel.setFont(new Font("Arial", Font.BOLD, 20));
         totalUsersLabel.setForeground(Color.WHITE);
         image.add(totalUsersLabel);
 
         // Total Deposits Label
         totalDepositsLabel = new JLabel("Total Amount Deposited: ");
-        totalDepositsLabel.setBounds(50, 140, 400, 40);
-        totalDepositsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        totalDepositsLabel.setBounds(50, 590, 400, 50);
+        totalDepositsLabel.setFont(new Font("Arial", Font.BOLD, 20));
         totalDepositsLabel.setForeground(Color.WHITE);
         image.add(totalDepositsLabel);
 
-        topRichestLabel = new JLabel("Top Richest Users: ");
-        topRichestLabel.setBounds(50, 180, 500, 100);
-        topRichestLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        topRichest = new JLabel("Top Richest Users: ");
+        topRichest.setBounds(50, 110, 200, 40);
+        topRichest.setFont(new Font("Arial", Font.BOLD, 20));
+        topRichest.setForeground(Color.WHITE);
+        image.add(topRichest);
+
+        topRichestLabel = new JLabel( );
+        topRichestLabel.setBounds(250, 100, 500, 100);
+        topRichestLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         topRichestLabel.setForeground(Color.WHITE);
         image.add(topRichestLabel);
 
@@ -99,7 +105,7 @@ public class ManagerDashboard extends JFrame implements ActionListener {
                     "ORDER BY l.balance DESC " +
                     "LIMIT 3";;
             ResultSet topUsersRs = c.s.executeQuery(topUsersQuery);
-            StringBuilder richestUsers = new StringBuilder("<html>Top Richest Users: <br> <br>");
+            StringBuilder richestUsers = new StringBuilder("<html>");
             String name = "" ;
             String fname = "" ;
             double balance = 0;
@@ -133,9 +139,10 @@ public class ManagerDashboard extends JFrame implements ActionListener {
                 String text = userformno + " " + userName;
                 list.add(text);
             }
-            int rowCount = list.size();
+            int rowCount = list.size() + 1 ;
             userDropdownItems = new String[rowCount];
-            for (int i = 0; i < list.size(); i++) {
+            userDropdownItems[0] = "Select User Name" ;
+            for (int i = 1; i < rowCount; i++) {
                 userDropdownItems[i] = list.get(i);
             }
 
@@ -143,22 +150,22 @@ public class ManagerDashboard extends JFrame implements ActionListener {
            //System.out.println("Error fetching user list: " + e.getMessage());
         }
 
-        userDetails = new JLabel("Select User Name ");
-        userDetails.setBounds(50, 460 , 200, 40);
-        userDetails.setFont(new Font("Arial", Font.PLAIN, 20));
+        userDetails = new JLabel("User Details Section ");
+        userDetails.setBounds(50, 380 , 250, 40);
+        userDetails.setFont(new Font("Arial", Font.BOLD, 20));
         userDetails.setForeground(Color.WHITE);
         image.add(userDetails);
 
         // User Dropdown
         userDropdown = new JComboBox<>(userDropdownItems);
-        userDropdown.setBounds(50, 500, 200, 30);
+        userDropdown.setBounds(50, 430, 200, 30);
         userDropdown.addActionListener(this);
         userDropdown.addActionListener(this);
         image.add(userDropdown);
 
         // User Details Area
         userDetailsArea = new JTextArea();
-        userDetailsArea.setBounds(300, 480 , 400, 150);
+        userDetailsArea.setBounds(300, 430 , 400, 150);
         userDetailsArea.setFont(new Font("Arial", Font.PLAIN, 16));
         userDetailsArea.setForeground(Color.BLACK);
         userDetailsArea.setEditable(false);
@@ -193,6 +200,14 @@ public class ManagerDashboard extends JFrame implements ActionListener {
             data[i] = loanDataList.get(i);
         }
 
+
+        loanTableLabel = new JLabel("Loan Table");
+        loanTableLabel.setBounds(50, 180, 200, 50);
+        loanTableLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        loanTableLabel.setForeground(Color.WHITE);
+        image.add(loanTableLabel);
+
+
         // loan table
         String[] columnNames = {"Card Number", "Loan Amount", "TotalAmount" , "Time Period", "Loan Type", "Interest", "Status"};
         loanTable = new JTable(data,columnNames);
@@ -205,23 +220,23 @@ public class ManagerDashboard extends JFrame implements ActionListener {
 
         JScrollPane scrollPane = new JScrollPane(loanTable);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        scrollPane.setBounds(50 , 300 , 700 , 130);
+        scrollPane.setBounds(50 , 230 , 700 , 130);
         image.add(scrollPane);
 
         approve = new JButton("Approve");
-        approve.setBounds(800 , 330 , 100 , 20 );
+        approve.setBounds(800 , 250 , 100 , 20 );
         approve.addActionListener(this);
         approve.setEnabled(false);
         image.add(approve);
 
         decline = new JButton("Decline");
-        decline.setBounds(800 , 380 , 100 , 20);
+        decline.setBounds(800 , 300 , 100 , 20);
         decline.addActionListener(this);
         decline.setEnabled(false);
         image.add(decline);
 
         exit = new JButton(" Exit  ");
-        exit.setBounds(820 , 600 , 100 , 40);
+        exit.setBounds(450 , 640 , 100 , 40);
         exit.addActionListener(this);
         exit.setForeground(Color.WHITE);
         exit.setBackground(Color.BLACK);
@@ -268,34 +283,38 @@ public class ManagerDashboard extends JFrame implements ActionListener {
 
         if(ae.getSource() == userDropdown){
             String selectedUser = (String) userDropdown.getSelectedItem();
-            String[] str = selectedUser.split(" ");
-            String num = str[0];
+            if(selectedUser.equals("Select User Name")){
+                return;
+            }else{
+                String[] str = selectedUser.split(" ");
+                String num = str[0];
 
-            try{
-                Connect c = new Connect() ;
-                String query1 = "SELECT s1.name , s1.fathers_name , s1.email , s1.state , s2.occupation , s2.income , l.balance\n" +
-                        "FROM login l " +
-                        "JOIN signup s1 ON l.formno = s1.formno " +
-                        "JOIN signuptwo s2 ON l.formno = s2.formno " +
-                        "JOIN signupthree s3 ON l.formno = s3.formno " +
-                        "WHERE l.formno = '"+num+"' " ;
+                try{
+                    Connect c = new Connect() ;
+                    String query1 = "SELECT s1.name , s1.fathers_name , s1.email , s1.state , s2.occupation , s2.income , l.balance\n" +
+                            "FROM login l " +
+                            "JOIN signup s1 ON l.formno = s1.formno " +
+                            "JOIN signuptwo s2 ON l.formno = s2.formno " +
+                            "JOIN signupthree s3 ON l.formno = s3.formno " +
+                            "WHERE l.formno = '"+num+"' " ;
 
-                ResultSet userData = c.s.executeQuery(query1);
-                if(userData.next()){
-                    StringBuilder userDetails = new StringBuilder();
-                    userDetails.append("Name: ").append(userData.getString("name")).append("\n");
-                    userDetails.append("Father's Name: ").append(userData.getString("fathers_name")).append("\n");
-                    userDetails.append("Email: ").append(userData.getString("email")).append("\n");
-                    userDetails.append("Occupation: ").append(userData.getString("occupation")).append("\n");
-                    userDetails.append("Income: ").append(userData.getString("income")).append("\n");
-                    userDetails.append("Balance: ").append(userData.getString("balance")).append("\n");
-                    userDetails.append("State: ").append(userData.getString("state")).append("\n");
+                    ResultSet userData = c.s.executeQuery(query1);
+                    if(userData.next()){
+                        StringBuilder userDetails = new StringBuilder();
+                        userDetails.append("Name: ").append(userData.getString("name")).append("\n");
+                        userDetails.append("Father's Name: ").append(userData.getString("fathers_name")).append("\n");
+                        userDetails.append("Email: ").append(userData.getString("email")).append("\n");
+                        userDetails.append("Occupation: ").append(userData.getString("occupation")).append("\n");
+                        userDetails.append("Income: ").append(userData.getString("income")).append("\n");
+                        userDetails.append("Balance: ").append(userData.getString("balance")).append("\n");
+                        userDetails.append("State: ").append(userData.getString("state")).append("\n");
 
 
-                    userDetailsArea.setText(userDetails.toString());
+                        userDetailsArea.setText(userDetails.toString());
+                    }
+                }catch (Exception e){
+                    System.out.println(e);
                 }
-            }catch (Exception e){
-                System.out.println(e);
             }
 
         }

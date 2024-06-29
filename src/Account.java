@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class Account extends JFrame implements ActionListener {
     private String pinNumber , cardNumber , nameVal ,formVal , cardVal , toAccount ,toPin , amount , pin ;
-    private JLabel   image , text  , mini , acccBalance , accTransfer , loan , deposit , accTran1 , accTran2 , accTran3  ;
+    private JLabel  heading , logoImage , image , text  , mini , acccBalance , accTransfer , loan , deposit , accTran1 , accTran2 , accTran3  ;
     private JPanel accTransferPanel , loanPanel , depositPanel ;
     private JButton accTranSubmit , accTranClear , back ;
     private JTextField text1 , text2 , text3 ;
@@ -26,14 +26,28 @@ public class Account extends JFrame implements ActionListener {
         getContentPane().setBackground(new Color(32, 107, 150));
         setLayout(null);
 
-        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
-        Image img3 = i3.getImage();
-        Image img4 = img3.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
-        ImageIcon i4 = new ImageIcon(img4);
-
-        image = new JLabel(i4);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
+        Image img1 = i1.getImage();
+        Image img2 = img1.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
+        ImageIcon i2 = new ImageIcon(img2);
+        image = new JLabel(i2);
         image.setBounds(0 , 0,1000 , 700 );
         add(image);
+
+        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
+        Image img3 = i3.getImage();
+        Image img4 = img3.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+        ImageIcon i4 = new ImageIcon(img4);
+
+        logoImage = new JLabel(i4);
+        logoImage.setBounds(20, 20, 65, 65);
+        image.add(logoImage);
+
+        heading = new JLabel("Lena Dena Bank Pvt Ltd");
+        heading.setBounds(280, 20, 500, 50);
+        heading.setFont(new Font("Aerial", Font.BOLD, 40));
+        heading.setForeground(Color.WHITE);
+        image.add(heading);
 
         text = new JLabel("<html>" + "Date & Time" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + "Type" + "&nbsp; &nbsp; &nbsp; " + "Amount" +  "<html>");
         text.setBounds(0 , 100 , 400 , 40);

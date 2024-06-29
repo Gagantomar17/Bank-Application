@@ -24,6 +24,7 @@ public class SignUpOne extends JFrame implements ActionListener {
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(new Color(32, 107, 150));
+        setUndecorated(true);
         setLayout(null);
 
         // bank logo
@@ -194,12 +195,15 @@ public class SignUpOne extends JFrame implements ActionListener {
         image.add(state);
 
         String[] states = {
-                "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
-                "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh",
-                "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
-                "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
-                "Uttarakhand", "West Bengal"
+                "" , "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh",
+                "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu",
+                "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir",
+                "Jharkhand", "Karnataka", "Kerala", "Ladakh", "Lakshadweep", "Madhya Pradesh",
+                "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha",
+                "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
+                "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
         };
+
 
         stateText = new JComboBox<>(states);
         stateText.setBounds(300 , 530 , 400 , 25);
@@ -292,7 +296,7 @@ public class SignUpOne extends JFrame implements ActionListener {
     }
 
     private boolean isValidName(String name) {
-        String regex = "^[a-zA-Z]+$";
+        String regex = "^[A-Za-z\\s]+$";
         return Pattern.matches(regex, name);
     }
 

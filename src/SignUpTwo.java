@@ -19,6 +19,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.WHITE);
+        setUndecorated(true);
         setLayout(null);
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
@@ -76,7 +77,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
         category.setForeground(Color.WHITE);
         image.add(category);
 
-        String valCategory[] = {"General" , "OBC" , "SC" , "ST" , "Others"};
+        String valCategory[] = {"" , "General" , "OBC" , "SC" , "ST" , "Others"};
         categoryText = new JComboBox(valCategory);
         categoryText.setBounds(300 , 210 , 400 , 25);
         categoryText.setBackground(Color.WHITE);
@@ -88,7 +89,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
         income.setForeground(Color.WHITE);
         image.add(income);
 
-        String valIncome[] = {"NULL" , "< 1,50,000" , "< 2,50,000" , "< 5,00,000" , "upto 10,00,000" , "above 1,00,000"};
+        String valIncome[] = {"" , "NULL" , "< 1,50,000" , "< 2,50,000" , "< 5,00,000" , "upto 10,00,000" , "above 1,00,000"};
         incomeText = new JComboBox(valIncome);
         incomeText.setBounds(300 , 250 , 400 , 25);
         incomeText.setBackground(Color.WHITE);
@@ -100,7 +101,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
         edu.setForeground(Color.WHITE);
         image.add(edu);
 
-        String valEdu[] = {"Non-Graduate" , "Graduate" , "Post-Graduate" , "Doctrate" , "Others"};
+        String valEdu[] = {"" , "Non-Graduate" , "Graduate" , "Post-Graduate" , "Doctrate" , "Others"};
         eduText = new JComboBox(valEdu);
         eduText.setBounds(300 , 290 , 400 , 25);
         eduText.setBackground(Color.WHITE);
@@ -112,7 +113,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
         occupation.setForeground(Color.WHITE);
         image.add(occupation);
 
-        String valOccupation[] = {"Salaried" , "Self-Employed" , "Business" , "Student" , "Retired" , "Others"};
+        String valOccupation[] = {"" , "Salaried" , "Self-Employed" , "Business" , "Student" , "Retired" , "Others"};
         occupationText = new JComboBox(valOccupation);
         occupationText.setBounds(300 , 330 , 400 , 25);
         occupationText.setBackground(Color.WHITE);

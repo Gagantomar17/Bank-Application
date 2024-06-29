@@ -20,6 +20,7 @@ public class SignUpThree extends JFrame implements ActionListener {
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.WHITE);
+        setUndecorated(true);
         setLayout(null);
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
@@ -72,7 +73,7 @@ public class SignUpThree extends JFrame implements ActionListener {
         image.add(savings);
 
         fixedDeposit = new JRadioButton(" Fixed Deposit Account ");
-        fixedDeposit.setBounds( 380, 210 , 250 , 25);
+        fixedDeposit.setBounds( 380, 210 , 200 , 25);
         fixedDeposit.setFont(new Font("",Font.PLAIN , 17 ));
         fixedDeposit.setBackground(Color.WHITE);
         image.add(fixedDeposit);
@@ -133,7 +134,7 @@ public class SignUpThree extends JFrame implements ActionListener {
         image.add(atm);
 
         internet = new JCheckBox(" Internet Banking ");
-        internet.setBounds( 380, 440 , 250 , 25);
+        internet.setBounds( 380, 440 , 200 , 25);
         internet.setFont(new Font("",Font.PLAIN , 17 ));
         internet.setBackground(Color.WHITE);
         image.add(internet);
@@ -164,7 +165,7 @@ public class SignUpThree extends JFrame implements ActionListener {
 
         declaration = new JCheckBox(" I hereby declare that the above Entered details " +
                 "are correct to the best of my knowlwdge  ");
-        declaration.setBounds(120 , 540 , 800 , 25);
+        declaration.setBounds(120 , 580 , 800 , 25);
         declaration.setFont(new Font("",Font.PLAIN , 17 ));
         declaration.setBackground(Color.WHITE);
         image.add(declaration);
@@ -172,14 +173,14 @@ public class SignUpThree extends JFrame implements ActionListener {
 
 
         submit = new JButton(" Submit ");
-        submit.setBounds(350 , 600 , 100 , 25);
+        submit.setBounds(350 , 650 , 100 , 25);
         submit.setForeground(Color.BLACK);
         submit.setBackground(Color.YELLOW);
         submit.addActionListener(this);
         image.add(submit);
 
         cancel = new JButton(" Cancel ");
-        cancel.setBounds(620 , 600 , 100 , 25);
+        cancel.setBounds(620 , 650 , 100 , 25);
         cancel.setForeground(Color.BLACK);
         cancel.setBackground(Color.YELLOW);
         cancel.addActionListener(this);
