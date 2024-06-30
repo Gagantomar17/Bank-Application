@@ -1,14 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class ManagerDashboard extends JFrame implements ActionListener {
+public class ManagerDashboard extends JFrame implements ActionListener , MouseListener {
     private JLabel loanTableLabel , topRichest , totalUsersLabel, logoImage, heading , topRichestLabel , userDetails , image , totalDepositsLabel ;
     private JComboBox<String> userDropdown;
     private JTextArea userDetailsArea;
@@ -98,7 +95,7 @@ public class ManagerDashboard extends JFrame implements ActionListener {
             }
             totalDepositsLabel.setText("Total Amount Deposited: Rs " + totalDeposits);
 
-            // Find top richest users (adjust query to your database schema)
+            // Find top richest users
             String topUsersQuery = "SELECT l.balance, s.name, s.fathers_name " +
                     "FROM login l " +
                     "JOIN signup s ON l.formno = s.formno " +
@@ -131,7 +128,7 @@ public class ManagerDashboard extends JFrame implements ActionListener {
             String userListQuery = "SELECT name, formno FROM signup";
             ResultSet userListRs = c.s.executeQuery(userListQuery);
             ArrayList<String> list = new ArrayList<>();
-            int index = 0;
+            list.add("Select User Name");
             while (userListRs.next()) {
                 String userName = userListRs.getString("name");
                 String userformno = userListRs.getString("formno");
@@ -139,12 +136,8 @@ public class ManagerDashboard extends JFrame implements ActionListener {
                 String text = userformno + " " + userName;
                 list.add(text);
             }
-            int rowCount = list.size() + 1 ;
-            userDropdownItems = new String[rowCount];
-            userDropdownItems[0] = "Select User Name" ;
-            for (int i = 1; i < rowCount; i++) {
-                userDropdownItems[i] = list.get(i);
-            }
+
+            userDropdownItems = list.toArray(new String[0]);
 
         } catch (Exception e) {
            //System.out.println("Error fetching user list: " + e.getMessage());
@@ -159,7 +152,6 @@ public class ManagerDashboard extends JFrame implements ActionListener {
         // User Dropdown
         userDropdown = new JComboBox<>(userDropdownItems);
         userDropdown.setBounds(50, 430, 200, 30);
-        userDropdown.addActionListener(this);
         userDropdown.addActionListener(this);
         image.add(userDropdown);
 
@@ -178,16 +170,16 @@ public class ManagerDashboard extends JFrame implements ActionListener {
             String query = "SELECT * FROM loan";
             ResultSet rs = c.s.executeQuery(query);
 
-            // Populate loanDataList with data from ResultSet
             while (rs.next()) {
-                Object[] row = new Object[7];
-                row[0] = rs.getString("cardNumber");
-                row[1] = rs.getDouble("LoanAmount");
-                row[2] = rs.getDouble("TotalAmount");
-                row[3] = rs.getInt("TimePeriod");
-                row[4] = rs.getString("LoanType");
-                row[5] = rs.getDouble("Interest");
-                row[6] = rs.getString("Statuss");
+                Object[] row = new Object[8];
+                row[0] = rs.getString("loanID");
+                row[1] = rs.getString("name");
+                row[2] = rs.getDouble("LoanAmount");
+                row[3] = rs.getDouble("TotalAmount");
+                row[4] = rs.getInt("TimePeriod");
+                row[5] = rs.getString("LoanType");
+                row[6] = rs.getDouble("Interest");
+                row[7] = rs.getString("Statuss");
 
                 loanDataList.add(row);
             }
@@ -195,7 +187,7 @@ public class ManagerDashboard extends JFrame implements ActionListener {
             //System.out.println(e);
         }
 
-        Object[][] data = new Object[loanDataList.size()][7];
+        Object[][] data = new Object[loanDataList.size()][8];
         for (int i = 0; i < loanDataList.size(); i++) {
             data[i] = loanDataList.get(i);
         }
@@ -209,14 +201,15 @@ public class ManagerDashboard extends JFrame implements ActionListener {
 
 
         // loan table
-        String[] columnNames = {"Card Number", "Loan Amount", "TotalAmount" , "Time Period", "Loan Type", "Interest", "Status"};
+        String[] columnNames = {"loanID" , "Name", "Loan Amount", "TotalAmount" , "Time Period", "Loan Type", "Interest", "Status"};
         loanTable = new JTable(data,columnNames);
         loanTable.setFont(new Font("Aerial", Font.PLAIN, 15));
         loanTable.setForeground(Color.BLACK);
-        loanTable.getColumnModel().getColumn(4).setPreferredWidth(100);
-        loanTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-        loanTable.getColumnModel().getColumn(3).setPreferredWidth(50);
-        loanTable.getColumnModel().getColumn(5).setPreferredWidth(30);
+        loanTable.addMouseListener(this);
+        loanTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+        loanTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+        loanTable.getColumnModel().getColumn(6).setPreferredWidth(50);
+        loanTable.getColumnModel().getColumn(5).setPreferredWidth(100);
 
         JScrollPane scrollPane = new JScrollPane(loanTable);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -241,43 +234,59 @@ public class ManagerDashboard extends JFrame implements ActionListener {
         exit.setForeground(Color.WHITE);
         exit.setBackground(Color.BLACK);
         image.add(exit);
-
-        loanTable.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                selectedRow = loanTable.getSelectedRow(); // Get the selected row
-                if (selectedRow != -1) { // Check if a row is selected
-                    String status = (String) loanTable.getValueAt(selectedRow, 6); // Get the status from the selected row
-                    if ("Pending".equals(status)) { // Check if the status is "Pending"
-                        approve.setEnabled(true); // Enable the approve button
-                        decline.setEnabled(true); // Enable the decline button
-                    }
-                }
-            }
-        });
         setVisible(true);
     }
+
+    public void mouseClicked(MouseEvent me){
+        selectedRow = loanTable.getSelectedRow();
+        if (selectedRow != -1) { // Check if a row is selected
+            String status = (String) loanTable.getValueAt(selectedRow, 7); // Get the status from the selected row
+            if ("Pending".equals(status)) {
+                approve.setEnabled(true);
+                decline.setEnabled(true);
+            }
+        }
+    }
+
+    // other mouse listener methods
+    public void mousePressed(MouseEvent me) {}
+    public void mouseReleased(MouseEvent me) {}
+    public void mouseEntered(MouseEvent me) {}
+    public void mouseExited(MouseEvent me){}
 
     public void actionPerformed(ActionEvent ae){
 
         if(selectedRow != -1){
-            String cardNumber = (String) loanTable.getValueAt(selectedRow, 0);
+            String num = (String) loanTable.getValueAt(selectedRow,0 );
+            int loanID = Integer.parseInt(num);
+            String cardNumber = "";
+            try{
+                Connect c = new Connect();
+                String query = "SELECT cardNumber FROM loan WHERE loanID = "+loanID+" ";
+                ResultSet rs =  c.s.executeQuery(query);
+                if(rs.next()){
+                    cardNumber = rs.getString("cardNumber");
+                }
+            }catch (Exception e){
+                System.out.println(e);
+            }
 
             if(ae.getSource() == approve){
                 approve.setEnabled(false);
                 decline.setEnabled(false);
                 // Update status in database to "Approved"
-                updateLoanStatus("Approved", cardNumber);
+                updateLoanStatus("Approved", cardNumber , loanID);
                 // Update status in table model
-                loanTable.setValueAt("Approved", selectedRow, 6);
-                double amount = (double) loanTable.getValueAt(selectedRow , 1);
+                loanTable.setValueAt("Approved", selectedRow, 7);
+                double amount = (double) loanTable.getValueAt(selectedRow , 2);
                 transferMoney(amount , cardNumber);
             }else if(ae.getSource() == decline){
                 approve.setEnabled(false);
                 decline.setEnabled(false);
                 //Update status in database to "Approved"
-                updateLoanStatus("Rejected", cardNumber);
+                updateLoanStatus("Rejected", cardNumber , loanID);
                 // Update status in table model
-                loanTable.setValueAt("Rejected", selectedRow, 6);
+                loanTable.setValueAt("Rejected", selectedRow, 7);
             }
         }
 
@@ -348,10 +357,10 @@ public class ManagerDashboard extends JFrame implements ActionListener {
         }
     }
 
-    public void updateLoanStatus(String status , String cardNumber){
+    public void updateLoanStatus(String status , String cardNumber , int loanID){
         try{
             Connect c = new Connect();
-            String query = "UPDATE loan SET Statuss = '"+status+"' WHERE cardNumber = '"+cardNumber+"'";
+            String query = "UPDATE loan SET Statuss = '"+status+"' WHERE cardNumber = '"+cardNumber+"' AND loanID ="+loanID+" ";
             c.s.executeUpdate(query);
         }catch (Exception e){
             System.out.println(e);

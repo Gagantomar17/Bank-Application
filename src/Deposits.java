@@ -172,10 +172,6 @@ public class Deposits extends JFrame implements ActionListener {
 
                 }
 
-                String query = "INSERT INTO deposits VALUES ('"+cardNumber+"' , "+enteredAmount+" , "+interestRate+" , "+selectedTenure+" , "+totalAmount+" )" ;
-                c.s.executeUpdate(query);
-                JOptionPane.showMessageDialog(null , "Amount Invested Successfully");
-
             }catch (Exception e){
                 System.out.println(e);
             }

@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 public class Loan extends JFrame implements ActionListener {
 
-    private String pinNumber , cardNumber , loanTypeText ;
+    private String pinNumber , cardNumber , loanTypeText , formno , name ;
     private JLabel logoImage , image , heading2 , heading , type , amount , tenureLabel , interestLabel , interestAmount;
     private JTextField  amountText  ;
     private JButton exit , submit , calculate;
@@ -207,8 +208,21 @@ public class Loan extends JFrame implements ActionListener {
         } else if (ae.getSource() == submit) {
             try{
                 Connect c = new Connect() ;
-                String query = "INSERT INTO loan VALUES ('"+cardNumber+"' , "+enteredAmount+" , "+totalAmount+" , "+selectedTenure+" , '"+loanTypeText+"' , "+interestRate+" , 'Pending'  )" ;
-                c.s.executeUpdate(query);
+                String query1 = "SELECT formno FROM login WHERE cardNumber = '"+cardNumber+"' " ;
+                ResultSet rs1 = c.s.executeQuery(query1);
+                if(rs1.next()){
+                    formno = rs1.getString("formno");
+                }
+
+                String query2 = "SELECT name FROM signup WHERE formno = '"+formno+"' " ;
+                ResultSet rs2 = c.s.executeQuery(query2);
+                if(rs2.next()){
+                    name  = rs2.getString("name");
+                }
+
+                String query3 = " INSERT INTO loan (cardNumber , Name, LoanAmount, TotalAmount, TimePeriod, LoanType, Interest, Statuss)" +
+                        "VALUES ('"+cardNumber+"' , '"+name+"' , "+enteredAmount+" , "+totalAmount+" , "+selectedTenure+" , '"+loanTypeText+"' , "+interestRate+" , 'Pending'  ) " ;
+                c.s.executeUpdate(query3);
                 JOptionPane.showMessageDialog(null , "Loan Request Submitted");
 
             }catch (Exception e){
