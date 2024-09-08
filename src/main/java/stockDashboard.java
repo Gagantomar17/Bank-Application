@@ -204,7 +204,6 @@ public class stockDashboard extends JFrame implements ActionListener {
         );
 
         XYPlot plotYearly5 = fiveYearlyChart.getXYPlot(); //Access the plot from the chart
-        //plotYearly5.setRenderer(splineRenderer);
 
         NumberAxis yAxisYearly5 = (NumberAxis) plotYearly5.getRangeAxis() ; // Get range axis (Y-axis)
         minMax = api.getMinMaxValues();
