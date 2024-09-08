@@ -52,11 +52,6 @@ public class Deposits extends JFrame implements ActionListener {
         amountText.setBounds(280 , 40 , 200 , 30);
         fd.add(amountText);
 
-        tenureLabel = new JLabel("Select Time Period");
-        tenureLabel.setBounds(20 , 100 , 200 , 50);
-        tenureLabel.setFont(new Font("",Font.PLAIN , 20));
-        tenureLabel.setForeground(Color.BLACK);
-        fd.add(tenureLabel);
 
         String[] tenureOptions = {"1 year", "2 years", "3 years", "4 years", "5 years" , "10 years"};
         tenureText = new JComboBox<>(tenureOptions);

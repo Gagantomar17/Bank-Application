@@ -13,10 +13,11 @@
     </properties>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.9.3</version>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.3</version>
         </dependency>
 
         <dependency>
@@ -24,6 +25,7 @@
             <artifactId>jcalendar</artifactId>
             <version>1.3.2</version> <!-- Ensure this version is available -->
         </dependency>
+
         <dependency>
             <groupId>org.asynchttpclient</groupId>
             <artifactId>async-http-client</artifactId>
@@ -33,8 +35,16 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.32</version> <!-- Use the latest version available -->
+            <version>8.0.32</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
+
+
 
 
     </dependencies>

@@ -158,7 +158,7 @@ public class Home extends JFrame implements ActionListener {
             //setVisible(false);
             dispose();
         } else if(ae.getSource() == deposits){
-            new Deposits(pinNumber , cardNumber);
+            new deposit_Rules(pinNumber , cardNumber);
             setVisible(false);
         } else if(ae.getSource() == loan){
             new loan_Rules(pinNumber , cardNumber);

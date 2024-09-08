@@ -28,15 +28,16 @@ public class loan_Rules extends JFrame implements ActionListener {
         image.setBounds(0, 0, 1000, 700);
         add(image);
 
-        rules = new JLabel("<html><ol>" +
-                "<li>Understand Your Financial Situation: Before applying for a loan, assess your current financial situation. </li>" +
-                "<li>Research Loan Options: Explore different types of loans available, such as personal loans, car loans, home loans, and education loans.</li>" +
-                "<li>Determine Loan Amount and Tenure: Decide how much money you need to borrow and the duration of the loan repayment. </li>" +
-                "<li>Understand Interest Rates and Fees: Familiarize yourself with the interest rates offered by different lenders and the fees associated with the loan.</li>" +
-                "<li>Read and Understand Terms and Conditions: Carefully read the terms and conditions of the loan agreement, including eligibility criteria, repayment terms and mechanisms</li>" +
-                "<li>Prepare Documentation: Gather the necessary documents required for the loan application, such as proof of identity, address, income, employment, and assets.</li>" +
-                "<li>Seek Professional Advice (if needed): If you're unsure about any aspect of the loan application process or loan terms, consider seeking advice from a financial advisor or loan officer. </li>" +
-                "</ol></html>");
+        rules = new JLabel("<html><ol>"
+                + "<li><b>Understand Your Financial Situation:</b> Before applying for a loan, assess your current financial situation.</li>"
+                + "<li><b>Research Loan Options:</b> Explore different types of loans available, such as personal loans, car loans, home loans, and education loans.</li>"
+                + "<li><b>Determine Loan Amount and Tenure:</b> Decide how much money you need to borrow and the duration of the loan repayment.</li>"
+                + "<li><b>Understand Interest Rates and Fees:</b> Familiarize yourself with the interest rates offered by different lenders and the fees associated with the loan.</li>"
+                + "<li><b>Read and Understand Terms and Conditions:</b> Carefully read the terms and conditions of the loan agreement, including eligibility criteria, repayment terms, and mechanisms.</li>"
+                + "<li><b>Prepare Documentation:</b> Gather the necessary documents required for the loan application, such as proof of identity, address, income, employment, and assets.</li>"
+                + "<li><b>Seek Professional Advice (if needed):</b> If you're unsure about any aspect of the loan application process or loan terms, consider seeking advice from a financial advisor or loan officer.</li>"
+                + "</ol></html>");
+
         rules.setBounds(100 , 100 , 600 , 500);
         rules.setFont(new Font("System" ,Font.PLAIN , 18));
         image.add(rules);

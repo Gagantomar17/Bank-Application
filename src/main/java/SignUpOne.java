@@ -7,7 +7,9 @@ import java.util.regex.Pattern;
 import com.toedter.calendar.JDateChooser;
 
 
+
 public class SignUpOne extends JFrame implements ActionListener {
+
     private String formNum ;
     private JDateChooser date ;
     private JLabel name, fname, dob, gender, email, marital, address, image ,
@@ -280,6 +282,7 @@ public class SignUpOne extends JFrame implements ActionListener {
                     Connect c = new Connect();
                     String query = "INSERT INTO signup VALUES('" + formNum +"' , '" + name + "', '" + fname + "', '" + dob + "', '" + gender + "', '" + email + "', '" + marital + "', '" + address + "', '" + city + "', '" + pin + "', '" + state + "')";
                     c.s.executeUpdate(query);
+
                     new SignUpTwo(formNum);
                     setVisible(false);
                 } catch(Exception e){
