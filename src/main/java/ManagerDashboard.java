@@ -32,6 +32,7 @@ public class ManagerDashboard extends JFrame implements ActionListener , MouseLi
         image.setBounds(0 , 0,1000 , 700 );
         add(image);
 
+
         ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
         Image img3 = i3.getImage();
         Image img4 = img3.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
