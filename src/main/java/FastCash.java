@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
+import java.time.LocalDate;
 import java.sql.ResultSet;
 
 public class FastCash extends JFrame implements ActionListener {
@@ -90,7 +90,7 @@ public class FastCash extends JFrame implements ActionListener {
                 if(ae.getSource() != back && balance < Integer.parseInt(amount)){
                     JOptionPane.showMessageDialog(null , "Insufficient balance ");
                 }else{
-                    Date date = new Date();
+                    LocalDate date = LocalDate.now();
                     String query = "INSERT INTO bank VALUES( '"+cardNumber+"' , '"+pinNumber+"' , '"+date+"' , 'Withdrawl' , '"+amount+"')";
                     c.s.executeUpdate(query);
                     int amountNum = Integer.parseInt(amount);

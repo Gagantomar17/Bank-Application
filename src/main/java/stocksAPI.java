@@ -9,19 +9,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class stocksAPI {
     double min = Double.MAX_VALUE;
     double max = Double.MIN_VALUE;
     double[] minMax ;
-    //private String apiKey = "VFAJ5V6J9MZVMUOY" ;
-    //private String apiKey = "YWVTUWDER0AQ3440" ;
     private String apiKey = "9F5TBFFXTOVQ29TP" ;
     private String stockSymbol ;
     private JSONObject timeSeries  ;

@@ -1,5 +1,3 @@
-import org.json.JSONObject;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class symbolSearch extends JFrame implements ActionListener {
 
-    JLabel nameLabel , selectedLabel , image ;
+    JLabel nameLabel , logoImage , heading ,stockImage , selectedLabel , image ;
     JTextField stockName ;
     JButton search , submit , back ;
     JComboBox<String> symbols ;
@@ -17,24 +15,45 @@ public class symbolSearch extends JFrame implements ActionListener {
         this.pinNumber = pinNumber ;
         this.cardNumber = cardNumber ;
 
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
-        getContentPane().setBackground(new Color(32, 107, 150));
         setLayout(null);
 
         /* In Java Swing, directly adding an Image object to a JFrame or JPanel
         isn't possible because Swing components like JLabel and JPanel are
          designed to work with ImageIcon for displaying images. */
 
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/stocks.jpg"));
-        Image img1 = i1.getImage().getScaledInstance(650 , 400 , Image.SCALE_SMOOTH);
-        i1 = new ImageIcon(img1);
-        image = new JLabel(i1);
-        image.setBounds(20, 150, 650, 400);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
+        Image img1 = i1.getImage();
+        Image img2 = img1.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
+        ImageIcon i2 = new ImageIcon(img2);
+        image = new JLabel(i2);
+        image.setBounds(0 , 0,1000 , 700 );
         add(image);
+
+        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
+        Image img3 = i3.getImage();
+        Image img4 = img3.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+        ImageIcon i4 = new ImageIcon(img4);
+        logoImage = new JLabel(i4);
+        logoImage.setBounds(20, 20, 65, 65);
+        image.add(logoImage);
+
+        ImageIcon i5 = new ImageIcon(ClassLoader.getSystemResource("image/stocks.jpg"));
+        Image img5 = i5.getImage().getScaledInstance(650 , 400 , Image.SCALE_SMOOTH);
+        i5 = new ImageIcon(img5);
+        stockImage = new JLabel(i5);
+        stockImage.setBounds(20, 150, 650, 400);
+        image.add(stockImage);
+
+        heading = new JLabel("Finance Capital Pvt Ltd");
+        heading.setBounds(250, 50, 500, 50);
+        heading.setFont(new Font("Aerial", Font.BOLD, 40));
+        heading.setForeground(Color.WHITE);
+        image.add(heading);
 
 
 
@@ -42,22 +61,19 @@ public class symbolSearch extends JFrame implements ActionListener {
         nameLabel.setBounds(730, 180 , 200 , 30 );
         nameLabel.setFont(new Font("",Font.BOLD , 20));
         nameLabel.setForeground(Color.WHITE);
-        add(nameLabel);
+        image.add(nameLabel);
 
         stockName = new JTextField();
         stockName.setBounds(700, 230 , 230 , 30 );
         stockName.setFont(new Font("",Font.BOLD , 20));
-        stockName.setForeground(Color.WHITE);
-        add(stockName);
+        stockName.setForeground(Color.black);
+        image.add(stockName);
 
-//        selectedLabel = new JLabel("Not selected ");
-//        selectedLabel.setBounds(630, 250 , 150 , 30 );
-//        add(selectedLabel);
 
         String[] none = {" None "} ;
         symbols = new JComboBox<>(none);
         symbols.setBounds(700 , 330 , 230 , 30 );
-        add(symbols);
+        image.add(symbols);
         symbols.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 stockSymbol = (String) symbols.getSelectedItem();
@@ -79,7 +95,7 @@ public class symbolSearch extends JFrame implements ActionListener {
         search.setForeground(Color.WHITE);
         search.setBackground(Color.BLACK);
         search.addActionListener(this);
-        add(search);
+        image.add(search);
 
         submit = new JButton("Submit") ;
         submit.setBounds(730 , 380 , 150 , 30);
@@ -87,14 +103,14 @@ public class symbolSearch extends JFrame implements ActionListener {
         submit.setForeground(Color.WHITE);
         submit.setBackground(Color.BLACK);
         submit.setEnabled(false);
-        add(submit);
+        image.add(submit);
 
         back = new JButton("Back");
         back.setBounds(350 , 600 , 170 , 40);
         back.addActionListener(this);
         back.setForeground(Color.WHITE);
         back.setBackground(Color.BLACK);
-        add(back);
+        image.add(back);
 
         setVisible(true);
     }

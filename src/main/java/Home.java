@@ -3,16 +3,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Home extends JFrame implements ActionListener {
+
+    private static final Logger logger = LogManager.getLogger(Home.class);
     private String pinNumber , cardNumber ;
-    private JLabel profileImage , image , atmImage , name , fname  , accType , email , state  , heading  ;
+    private JLabel developer , profileImage , image , atmImage , name , fname  , accType , email , state  , heading  ;
     private JButton loan , account , deposits , sip , accTransfer , atm , exit ;
 
     Home(String pinNumber , String cardNumber){
         this.pinNumber = pinNumber ;
         this.cardNumber = cardNumber ;
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,9 +32,9 @@ public class Home extends JFrame implements ActionListener {
         image.setBounds(0 , 0,1000 , 700 );
         add(image);
 
-        heading = new JLabel("Lena Dena Bank Pvt Ltd");
-        heading.setBounds(350 , 40 , 500 , 60);
-        heading.setFont(new Font("Aerial" , Font.BOLD  , 35));
+        heading = new JLabel("Finance Capital Pvt Ltd");
+        heading.setBounds(300 , 40 , 500 , 60);
+        heading.setFont(new Font("Aerial" , Font.BOLD  , 40));
         heading.setForeground(Color.WHITE);
         image.add(heading);
 
@@ -83,6 +87,12 @@ public class Home extends JFrame implements ActionListener {
         state.setFont(new Font("Aerial" , Font.BOLD , 20));
         state.setForeground(Color.WHITE);
         image.add(state);
+
+        developer = new JLabel("Developed by Gagan Tomar");
+        developer.setBounds(10 , 650 , 300 , 30);
+        developer.setFont(new Font("Aerial" , Font.BOLD , 20));
+        developer.setForeground(Color.BLACK);
+        image.add(developer);
 
         account = new JButton("Accounts");
         account.setBounds(420 , 175 , 200 , 60);
@@ -154,25 +164,42 @@ public class Home extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == account ){
+
+            logger.info("User accessed the 'Account' section. Card Number: {}", cardNumber);
             new Account(pinNumber , cardNumber);
-            //setVisible(false);
-            dispose();
+            logger.info("Redirected to 'Account' screen for Card Number: {}", cardNumber);
+            setVisible(false);
+
         } else if(ae.getSource() == deposits){
+
+            logger.info("User accessed the 'Deposits' section. Card Number: {}", cardNumber);
             new deposit_Rules(pinNumber , cardNumber);
+            logger.info("Redirected to 'Deposit Rules' screen for Card Number: {}", cardNumber);
             setVisible(false);
+
         } else if(ae.getSource() == loan){
+
+            logger.info("User accessed the 'Loan' section. Card Number: {}", cardNumber);
             new loan_Rules(pinNumber , cardNumber);
+            logger.info("Redirected to 'Loan' screen for Card Number: {}", cardNumber);
             setVisible(false);
+
         } else if(ae.getSource() == atm){
+
+            logger.info("User accessed the 'ATM Transactions' section. Card Number: {}", cardNumber);
             new Transactions(pinNumber , cardNumber);
+            logger.info("Redirected to 'Transactions' screen for Card Number: {}", cardNumber);
             setVisible(false);
+
         }else if(ae.getSource() == exit){
+
+            logger.info("User exited the application. Card Number: {}", cardNumber);
             setVisible(false);
 
         }
     }
 
     public static void main(String[] args) {
-        new Home("0057" , "1010101053744691");
+        new Home("" , "");
     }
 }

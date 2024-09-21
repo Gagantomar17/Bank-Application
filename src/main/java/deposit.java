@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 
@@ -16,7 +16,7 @@ public class deposit extends JFrame implements ActionListener {
     deposit(String pinNumber , String cardNumber){
         this.pinNumber = pinNumber ;
         this.cardNumber = cardNumber ;
-        setTitle("Banking Application - Home Page");
+        setTitle("Finance Capital Pvt Ltd");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(450 , 50 );
         setSize(700, 700);
@@ -60,7 +60,8 @@ public class deposit extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == depositt){
             String amount = amountText.getText();
-            Date date = new Date();
+            LocalDate date = LocalDate.now();
+
             if(amount.equals("") || !isValidAmount(amount) ){
                 JOptionPane.showMessageDialog(null , "Please enter a valid amount ");
             }else{

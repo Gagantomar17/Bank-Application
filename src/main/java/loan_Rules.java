@@ -6,27 +6,40 @@ import java.awt.event.ActionListener;
 public class loan_Rules extends JFrame implements ActionListener {
 
     private String pinNumber, cardNumber;
-    private JLabel image , rules;
+    private JLabel image , rules , heading , logoImage ;
     private JButton next , back ;
 
     loan_Rules(String pinNumber, String cardNumber) {
         this.pinNumber = pinNumber;
         this.cardNumber = cardNumber;
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000, 700);
         setLocation(250, 50);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(new Color(32, 107, 150));
         setLayout(null);
 
-        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
-        Image img3 = i3.getImage();
-        Image img4 = img3.getScaledInstance(1000, 700, Image.SCALE_SMOOTH);
-        ImageIcon i4 = new ImageIcon(img4);
-
-        image = new JLabel(i4);
-        image.setBounds(0, 0, 1000, 700);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
+        Image img1 = i1.getImage();
+        Image img2 = img1.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
+        ImageIcon i2 = new ImageIcon(img2);
+        image = new JLabel(i2);
+        image.setBounds(0 , 0,1000 , 700 );
         add(image);
+
+        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
+        Image img3 = i3.getImage();
+        Image img4 = img3.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+        ImageIcon i4 = new ImageIcon(img4);
+        logoImage = new JLabel(i4);
+        logoImage.setBounds(20, 20, 65, 65);
+        image.add(logoImage);
+
+        heading = new JLabel("Finance Capital Pvt Ltd");
+        heading.setBounds(280, 50, 500, 50);
+        heading.setFont(new Font("Aerial", Font.BOLD, 40));
+        heading.setForeground(Color.WHITE);
+        image.add(heading);
 
         rules = new JLabel("<html><ol>"
                 + "<li><b>Understand Your Financial Situation:</b> Before applying for a loan, assess your current financial situation.</li>"
@@ -40,17 +53,18 @@ public class loan_Rules extends JFrame implements ActionListener {
 
         rules.setBounds(100 , 100 , 600 , 500);
         rules.setFont(new Font("System" ,Font.PLAIN , 18));
+        rules.setForeground(Color.white);
         image.add(rules);
 
         next = new JButton("I Agree to the T&C");
-        next.setBounds(200 , 600 , 170 , 40);
+        next.setBounds(450 , 600 , 170 , 40);
         next.addActionListener(this);
-        next.setForeground(Color.WHITE);
-        next.setBackground(Color.BLACK);
+        next.setForeground(Color.BLACK);
+        next.setBackground(Color.YELLOW);
         image.add(next);
 
         back = new JButton("Back");
-        back.setBounds(400 , 600 , 170 , 40);
+        back.setBounds(250 , 600 , 170 , 40);
         back.addActionListener(this);
         back.setForeground(Color.WHITE);
         back.setBackground(Color.BLACK);
@@ -64,11 +78,11 @@ public class loan_Rules extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == next){
-            setVisible(false);
             new Loan(pinNumber , cardNumber);
-        }else if(ae.getSource() == back ){
             setVisible(false);
+        }else if(ae.getSource() == back ){
             new Home(pinNumber , cardNumber);
+            setVisible(false);
         }
     }
 

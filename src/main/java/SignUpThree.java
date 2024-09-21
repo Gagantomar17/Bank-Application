@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.Random;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SignUpThree extends JFrame implements ActionListener {
 
+    private static final Logger logger = LogManager.getLogger(SignUpThree.class);
     private JButton submit, back, cancel ;
     private JLabel heading1 , formNo , heading2, logo, acc, card, cardNo, pin, pinNo, service , image ;
     private JRadioButton savings , fixedDeposit , current , student;
@@ -15,7 +18,7 @@ public class SignUpThree extends JFrame implements ActionListener {
 
     SignUpThree(String formNum){
         this.formNum =  formNum ;
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -247,8 +250,12 @@ public class SignUpThree extends JFrame implements ActionListener {
                 facility += " E-Statement";
             }
 
+            logger.info("Processing sign-up form 3 creation with form number: {}", formNum);
+            logger.info("Generated card number: {}", cardNumber);
+
             try{
                 if(accType.equals("")){
+                    logger.warn("Account type not selected for form number: {}", formNum);
                     JOptionPane.showMessageDialog(null , "Account Type is required");
                 }else{
                     Connect conn = new Connect();
@@ -256,15 +263,18 @@ public class SignUpThree extends JFrame implements ActionListener {
                     String query2 = "INSERT INTO login VALUES('" + formNum +"', '" + cardNumber + "', '" + pinNumber +"' , 0 )";
                     conn.s.executeUpdate(query);
                     conn.s.executeUpdate(query2);
+                    logger.info("Account created successfully for form number: {}", formNum);
                     JOptionPane.showMessageDialog(null , "Card Number " + cardNumber + "\n Pin Number " + pinNumber);
                     new Login();
                     setVisible(false);
                 }
 
             } catch (Exception e){
+                logger.error("Error during sign-up form 3 submission for form number: {}", formNum, e);
                 System.out.println(e);
             }
         } else if (ae.getSource()==cancel) {
+            logger.info("Sign-up form 3 creation canceled for form number: {}", formNum);
             new Login() ;
             setVisible(false);
         }

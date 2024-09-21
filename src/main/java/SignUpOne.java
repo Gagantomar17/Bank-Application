@@ -5,11 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 import java.util.regex.Pattern;
 import com.toedter.calendar.JDateChooser;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class SignUpOne extends JFrame implements ActionListener {
 
+    private static final Logger logger = LogManager.getLogger(SignUpOne.class);
     private String formNum ;
     private JDateChooser date ;
     private JLabel name, fname, dob, gender, email, marital, address, image ,
@@ -21,7 +23,7 @@ public class SignUpOne extends JFrame implements ActionListener {
     private JComboBox<String> stateText ;
 
     public SignUpOne(){
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,6 +78,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
         nameText = new JTextField();
         nameText.setBounds(300 , 170 , 400 , 25);
+        nameText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(nameText);
 
         fname = new JLabel("Father's Name:");
@@ -86,6 +89,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
         fnameText = new JTextField();
         fnameText.setBounds(300 , 210 , 400 , 25);
+        fnameText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(fnameText);
 
         dob = new JLabel("Date Of Birth:");
@@ -136,6 +140,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
         emailText = new JTextField();
         emailText.setBounds(300 , 330 , 400 , 25);
+        emailText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(emailText);
 
         marital = new JLabel("Marital Status:");
@@ -168,6 +173,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
         addressText = new JTextField();
         addressText.setBounds(300 , 410 , 400 , 25);
+        addressText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(addressText);
 
         city = new JLabel("City:");
@@ -178,6 +184,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
         cityText = new JTextField();
         cityText.setBounds(300 , 450 , 400 , 25);
+        cityText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(cityText);
 
         pinCode = new JLabel("Pin Code:");
@@ -188,6 +195,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
         pinCodeText = new JTextField();
         pinCodeText.setBounds(300 , 490 , 400 , 25);
+        pinCodeText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(pinCodeText);
 
         state = new JLabel("State:");
@@ -209,6 +217,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
         stateText = new JComboBox<>(states);
         stateText.setBounds(300 , 530 , 400 , 25);
+        stateText.setFont(new Font("Aerial" , Font.BOLD , 17));
         stateText.addActionListener(this);
         image.add(stateText);
 
@@ -265,17 +274,26 @@ public class SignUpOne extends JFrame implements ActionListener {
             String state = "" ;
             state = (String) stateText.getSelectedItem();
 
+            logger.info("Processing sign-up form 1 with form number: {}", formNum);
+
+
             if (!isValidName(name)) {
+                logger.warn("Invalid name entered: {}", name);
                 JOptionPane.showMessageDialog(null, "Please enter a valid name.");
             } else if (!isValidName(fname)) {
+                logger.warn("Invalid father’s name entered: {}", fname);
                 JOptionPane.showMessageDialog(null, "Please enter a valid fathers name.");
             } else if (!isValidName(city)) {
+                logger.warn("Invalid city name entered: {}", city);
                 JOptionPane.showMessageDialog(null, "Please enter a valid city name.");
             } else if (!isValidPin(pin)) {
+                logger.warn("Invalid pin code entered: {}", pin);
                 JOptionPane.showMessageDialog(null, "Please enter a valid pin code.");
             } else if (name.equals("") || fname.equals("") || dob.equals("") || email.equals("") || address.equals("") || city.equals("") || pin.equals("") || state.equals("")) {
+                logger.warn("Incomplete form submission with form number: {}", formno);
                 JOptionPane.showMessageDialog(null, "All fields are required.");
             } else if (!isValidEmail(email)) {
+                logger.warn("Invalid email entered: {}", email);
                 JOptionPane.showMessageDialog(null, "Enter a valid email.");
             } else {
                 try {
@@ -283,9 +301,12 @@ public class SignUpOne extends JFrame implements ActionListener {
                     String query = "INSERT INTO signup VALUES('" + formNum +"' , '" + name + "', '" + fname + "', '" + dob + "', '" + gender + "', '" + email + "', '" + marital + "', '" + address + "', '" + city + "', '" + pin + "', '" + state + "')";
                     c.s.executeUpdate(query);
 
+                    logger.info("Sign-up form 1 successful with form number: {} | Name: {} | Father's Name: {} | DOB: {} | Gender: {} | Email: {} | Marital Status: {} | Address: {} | City: {} | PIN: {} | State: {}",
+                            formNum, name, fname, dob, gender, email, marital, address, city, pin, state);
                     new SignUpTwo(formNum);
                     setVisible(false);
                 } catch(Exception e){
+                    logger.error("Error during sign-up form 1 with form number: {}", formNum, e);
                     System.out.println(e.getMessage());
                     System.out.println(e);
                 }
@@ -293,6 +314,7 @@ public class SignUpOne extends JFrame implements ActionListener {
 
 
         }else if(ae.getSource() == cancel){
+            logger.info("Sign-up form 1 canceled. Returning to login screen.");
             new Login();
             setVisible(false);
         }

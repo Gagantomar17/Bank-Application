@@ -3,12 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class Deposits extends JFrame implements ActionListener {
 
     private String pinNumber , cardNumber , amount ;
-    private JLabel image , pAmount , tenureLabel , interestLabel , interestAmount  ;
+    private JLabel image , logoImage , heading , pAmount , tenureLabel , interestLabel , interestAmount  ;
     private JTextField amountText  ;
     private JPanel fd ;
     private JButton submit , calculate , exit ;
@@ -20,21 +22,35 @@ public class Deposits extends JFrame implements ActionListener {
         this.pinNumber = pinNumber ;
         this.cardNumber = cardNumber ;
 
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(new Color(32, 107, 150));
         setLayout(null);
+        setUndecorated(true);
 
-        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
-        Image img3 = i3.getImage();
-        Image img4 = img3.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
-        ImageIcon i4 = new ImageIcon(img4);
-
-        image = new JLabel(i4);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
+        Image img1 = i1.getImage();
+        Image img2 = img1.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
+        ImageIcon i2 = new ImageIcon(img2);
+        image = new JLabel(i2);
         image.setBounds(0 , 0,1000 , 700 );
         add(image);
+
+        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
+        Image img3 = i3.getImage();
+        Image img4 = img3.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+        ImageIcon i4 = new ImageIcon(img4);
+        logoImage = new JLabel(i4);
+        logoImage.setBounds(20, 20, 65, 65);
+        image.add(logoImage);
+
+        heading = new JLabel("Finance Capital Pvt Ltd");
+        heading.setBounds(250, 50, 500, 50);
+        heading.setFont(new Font("Aerial", Font.BOLD, 40));
+        heading.setForeground(Color.WHITE);
+        image.add(heading);
 
         fd = new JPanel();
         fd.setLayout(null);
@@ -49,8 +65,14 @@ public class Deposits extends JFrame implements ActionListener {
 
 
         amountText = new JTextField();
-        amountText.setBounds(280 , 40 , 200 , 30);
+        amountText.setBounds(280 , 45 , 200 , 30);
         fd.add(amountText);
+
+        tenureLabel = new JLabel("Select Tenure");
+        tenureLabel.setBounds(20 , 100, 250, 40);
+        tenureLabel.setFont(new Font("", Font.PLAIN, 20));
+        tenureLabel.setForeground(Color.BLACK);
+        fd.add(tenureLabel);
 
 
         String[] tenureOptions = {"1 year", "2 years", "3 years", "4 years", "5 years" , "10 years"};
@@ -72,33 +94,33 @@ public class Deposits extends JFrame implements ActionListener {
         fd.add(interestAmount);
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.setBounds(270, 100, 550, 500);
+        tabbedPane.setBounds(200, 135, 550, 300);
         tabbedPane.addTab("fixed Deposits", fd);
         image.add(tabbedPane);
 
         calculate = new JButton("Calculate");
-        calculate.setBounds(260 , 330 , 140 , 40);
+        calculate.setBounds(460 , 500 , 140 , 40);
         calculate.addActionListener(this);
-        calculate.setForeground(Color.WHITE);
-        calculate.setBackground(Color.BLACK);
-        fd.add(calculate);
+        calculate.setForeground(Color.BLACK);
+        calculate.setBackground(Color.YELLOW);
+        image.add(calculate);
 
 
         submit = new JButton("Submit");
-        submit.setBounds(110 , 330 , 140 , 40);
+        submit.setBounds(310 , 500 , 140 , 40);
         submit.addActionListener(this);
-        submit.setForeground(Color.WHITE);
+        submit.setForeground(Color.BLACK);
         submit.setEnabled(false);
-        submit.setBackground(Color.BLACK);
-        fd.add(submit);
+        submit.setBackground(Color.YELLOW);
+        image.add(submit);
 
 
         exit = new JButton("Back");
-        exit.setBounds(120 , 390 , 250 , 40);
+        exit.setBounds(320 , 565 , 250 , 40);
         exit.addActionListener(this);
         exit.setForeground(Color.WHITE);
         exit.setBackground(Color.BLACK);
-        fd.add(exit);
+        image.add(exit);
 
 
         setVisible(true);
@@ -111,26 +133,30 @@ public class Deposits extends JFrame implements ActionListener {
         }else if(ae.getSource() == calculate){
 
             amount = amountText.getText();
-            enteredAmount = Integer.parseInt(amount);
-            String num2 = ((String) tenureText.getSelectedItem()).split(" ")[0];
-            selectedTenure = Integer.parseInt(num2);
-            if(amount.equals("") || num2.equals("") ){
-                JOptionPane.showMessageDialog(null , "All fields are requires");
-
+            if(!isValidAmount(amount)){
+                JOptionPane.showMessageDialog(null , "Enter valid amount");
             }else{
-                if(selectedTenure == 1){
-                    interestRate = 5 ;
-                }else if(selectedTenure == 2){
-                    interestRate = 5.5 ;
-                }else if (selectedTenure == 3){
-                    interestRate = 6 ;
-                }else if(selectedTenure == 4){
-                    interestRate = 6.5 ;
-                }else if(selectedTenure == 5){
-                    interestRate = 7 ;
-                }else if(selectedTenure == 10){
-                    interestRate = 10 ;
-                }
+                enteredAmount = Integer.parseInt(amount);
+                String num2 = ((String) tenureText.getSelectedItem()).split(" ")[0];
+                selectedTenure = Integer.parseInt(num2);
+                if(amount.equals("") || num2.equals("") ){
+                    JOptionPane.showMessageDialog(null , "All fields are requires");
+
+                }else{
+                    if(selectedTenure == 1){
+                        interestRate = 5 ;
+                    }else if(selectedTenure == 2){
+                        interestRate = 5.5 ;
+                    }else if (selectedTenure == 3){
+                        interestRate = 6 ;
+                    }else if(selectedTenure == 4){
+                        interestRate = 6.5 ;
+                    }else if(selectedTenure == 5){
+                        interestRate = 7 ;
+                    }else if(selectedTenure == 10){
+                        interestRate = 10 ;
+                    }
+            }
 
                 interestLabel.setText("Interest Rate: " + interestRate + " %");
                 interest = calculateInterest(enteredAmount, selectedTenure , interestRate);
@@ -152,8 +178,8 @@ public class Deposits extends JFrame implements ActionListener {
                 if(balance < enteredAmount){
                     JOptionPane.showMessageDialog(null , "Insufficient balance ");
                 }else{
-                    Date date = new Date();
-                    String query1 = "INSERT INTO bank VALUES('"+cardNumber+"' , '"+pinNumber+"' , '"+date+"' , 'invested' , '"+amount+"')";
+                    LocalDate date = LocalDate.now() ;
+                    String query1 = "INSERT INTO bank VALUES('"+cardNumber+"' , '"+pinNumber+"' , '"+date+"' , 'FD Invest' , '"+amount+"')";
                     c.s.executeUpdate(query1);
 
                     String query2 = "INSERT INTO deposits VALUES ('"+cardNumber+"' , "+enteredAmount+" , "+interestRate+" , "+selectedTenure+" , "+totalAmount+" )" ;
@@ -180,6 +206,12 @@ public class Deposits extends JFrame implements ActionListener {
         double interestAmount = amount * rate * tenure ;
         return interestAmount ;
 
+    }
+
+    private boolean isValidAmount(String input) {
+        // non-negative and non-zero number
+        String regex = "^[1-9]\\d*$";
+        return Pattern.matches(regex, input);
     }
 
     public static void main(String[] args) {

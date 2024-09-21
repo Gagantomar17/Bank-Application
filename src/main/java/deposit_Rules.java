@@ -5,33 +5,48 @@ import java.awt.event.ActionListener;
 
 public class deposit_Rules extends JFrame implements ActionListener {
     String pinNumber , cardNumber ;
-    JLabel heading , image , rules ;
+    JLabel heading1 , heading2 , image , rules , logoImage ;
     JButton back , fd , stocks;
 
     deposit_Rules(String pinNumber , String cardNumber){
         this.pinNumber = pinNumber ;
         this.cardNumber = cardNumber ;
 
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setBackground(new Color(32, 107, 150));
         setLayout(null);
 
-        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
-        Image img3 = i3.getImage();
-        Image img4 = img3.getScaledInstance(1000, 700, Image.SCALE_SMOOTH);
-        ImageIcon i4 = new ImageIcon(img4);
-
-        image = new JLabel(i4);
-        image.setBounds(0, 0, 1000, 700);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("image/backbg.png"));
+        Image img1 = i1.getImage();
+        Image img2 = img1.getScaledInstance(1000 , 700 ,Image.SCALE_SMOOTH );
+        ImageIcon i2 = new ImageIcon(img2);
+        image = new JLabel(i2);
+        image.setBounds(0 , 0,1000 , 700 );
         add(image);
 
-        heading = new JLabel("Terms and Conditions");
-        heading.setBounds(250 , 50 , 400 , 50);
-        heading.setFont(new Font("System" ,Font.BOLD , 27));
-        image.add(heading);
+        ImageIcon i3 = new ImageIcon(ClassLoader.getSystemResource("image/logo.jpg"));
+        Image img3 = i3.getImage();
+        Image img4 = img3.getScaledInstance(65, 65, Image.SCALE_SMOOTH);
+        ImageIcon i4 = new ImageIcon(img4);
+        logoImage = new JLabel(i4);
+        logoImage.setBounds(20, 20, 65, 65);
+        image.add(logoImage);
+
+        heading1 = new JLabel("Finance Capital Pvt Ltd");
+        heading1.setBounds(250, 50, 500, 50);
+        heading1.setFont(new Font("Aerial", Font.BOLD, 40));
+        heading1.setForeground(Color.WHITE);
+        image.add(heading1);
+
+        heading2 = new JLabel("Terms and Conditions");
+        heading2.setBounds(130 , 115 , 400 , 40);
+        heading2.setFont(new Font("System" ,Font.BOLD , 27));
+        heading2.setForeground(Color.WHITE);
+        image.add(heading2);
 
         rules = new JLabel("<html><ol>"
                 + "<li><b>Risk Disclaimer for Stocks:</b> Investments in stocks are subject to market risks. The value of your investments can go up or down based on market conditions. "
@@ -43,22 +58,23 @@ public class deposit_Rules extends JFrame implements ActionListener {
                 + "Avoid putting all your funds into a single stock or FD to safeguard your portfolio from potential losses.</li>"
                 + "</ol></html>");
 
-        rules.setBounds(100 , 80 , 600 , 400);
+        rules.setBounds(100 , 130 , 600 , 400);
         rules.setFont(new Font("System" ,Font.PLAIN , 18));
+        rules.setForeground(Color.WHITE);
         image.add(rules);
 
         fd = new JButton("Invest in FD");
         fd.setBounds(750 , 250 , 150 , 70);
         fd.addActionListener(this);
-        fd.setForeground(Color.WHITE);
-        fd.setBackground(Color.BLACK);
+        fd.setForeground(Color.BLACK);
+        fd.setBackground(Color.YELLOW);
         image.add(fd);
 
         stocks = new JButton("Invest in Stocks");
         stocks.setBounds(750 , 400 , 150 , 70);
         stocks.addActionListener(this);
-        stocks.setForeground(Color.WHITE);
-        stocks.setBackground(Color.BLACK);
+        stocks.setForeground(Color.BLACK);
+        stocks.setBackground(Color.YELLOW);
         image.add(stocks);
 
         back = new JButton("Back");

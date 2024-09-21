@@ -3,15 +3,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date ;
-import java.util.jar.JarFile;
 import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Account extends JFrame implements ActionListener {
-    private String pinNumber , cardNumber , nameVal ,formVal , cardVal , toAccount ,toPin , amount , pin ;
-    private JLabel  heading , logoImage , image , text  , mini , acccBalance , accTransfer , loan , deposit , accTran1 , accTran2 , accTran3  ;
-    private JPanel accTransferPanel , loanPanel , depositPanel ;
+
+    private static final Logger logger = LogManager.getLogger(Account.class);
+    private String pinNumber , cardNumber , toAccount ,toPin , amount , pin ;
+    private JLabel  heading , logoImage , image , text  , mini , accTransfer , loan , deposit , accTran1 , accTran2 , accTran3  ;
+    private JPanel accTransferPanel ;
     private JButton accTranSubmit , accTranClear , back ;
     private JTextField text1 , text2 , text3 ;
     private int balance ;
@@ -19,7 +22,7 @@ public class Account extends JFrame implements ActionListener {
     Account(String pinNumber , String cardNumber){
         this.pinNumber = pinNumber ;
         this.cardNumber = cardNumber ;
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,16 +46,17 @@ public class Account extends JFrame implements ActionListener {
         logoImage.setBounds(20, 20, 65, 65);
         image.add(logoImage);
 
-        heading = new JLabel("Lena Dena Bank Pvt Ltd");
-        heading.setBounds(280, 20, 500, 50);
+        heading = new JLabel("Finance Capital Pvt Ltd");
+        heading.setBounds(280, 50, 500, 50);
         heading.setFont(new Font("Aerial", Font.BOLD, 40));
         heading.setForeground(Color.WHITE);
         image.add(heading);
 
-        text = new JLabel("<html>" + "Date & Time" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + "Type" + "&nbsp; &nbsp; &nbsp; " + "Amount" +  "<html>");
-        text.setBounds(0 , 100 , 400 , 40);
+        text = new JLabel("<html>" + "Date" + "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " + "Type" + "&nbsp; &nbsp; &nbsp; " + "Amount" +  "<html>");
+        text.setBounds(10 , 120 , 400 , 40);
         text.setFont(new Font("System" ,Font.BOLD , 20));
-        text.setForeground(Color.WHITE);
+        text.setForeground(Color.BLACK);
+        text.setBackground(Color.WHITE);
         image.add(text);
 
         // Account transfer method code
@@ -93,30 +97,30 @@ public class Account extends JFrame implements ActionListener {
         accTransferPanel.add(text3);
 
         accTranSubmit = new JButton("Submit");
-        accTranSubmit.setBounds(260 , 330 , 140 , 40);
+        accTranSubmit.setBounds(680 , 480 , 140 , 40);
         accTranSubmit.addActionListener(this);
-        accTranSubmit.setForeground(Color.WHITE);
-        accTranSubmit.setBackground(Color.BLACK);
-        accTransferPanel.add(accTranSubmit);
+        accTranSubmit.setForeground(Color.BLACK);
+        accTranSubmit.setBackground(Color.YELLOW);
+        image.add(accTranSubmit);
 
         accTranClear = new JButton("Clear");
-        accTranClear.setBounds(110 , 330 , 140 , 40);
+        accTranClear.setBounds(530 , 480 , 140 , 40);
         accTranClear.addActionListener(this);
-        accTranClear.setForeground(Color.WHITE);
-        accTranClear.setBackground(Color.BLACK);
-        accTransferPanel.add(accTranClear);
+        accTranClear.setForeground(Color.BLACK);
+        accTranClear.setBackground(Color.YELLOW);
+        image.add(accTranClear);
 
         back = new JButton("Back");
-        back.setBounds(120 , 390 , 250 , 40);
+        back.setBounds(540 , 540 , 250 , 40);
         back.addActionListener(this);
-        back.setForeground(Color.WHITE);
-        back.setBackground(Color.BLACK);
-        accTransferPanel.add(back);
+        back.setForeground(Color.BLACK);
+        back.setBackground(Color.YELLOW);
+        image.add(back);
 
 
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.setBounds(420, 150, 550, 500);
+        tabbedPane.setBounds(420, 150, 550, 300);
         tabbedPane.addTab("Account Transfer", accTransferPanel);
         image.add(tabbedPane);
 
@@ -126,31 +130,25 @@ public class Account extends JFrame implements ActionListener {
         mini.setForeground(Color.BLACK);
         image.add(mini);
 
+        ArrayList<String> List = new ArrayList<>();
         try{
             Connect c = new Connect();
             ResultSet rs = c.s.executeQuery("SELECT *FROM bank WHERE cardNumber = '"+cardNumber+"' AND pin = '"+pinNumber+"'");
-            ArrayList<String> List = new ArrayList<>();
             while(rs.next()) {
                 String data = "<html>" + rs.getString("date")+ "&nbsp; &nbsp; &nbsp; " + rs.getString("type")+ "&nbsp; &nbsp; &nbsp; &nbsp;" +rs.getString("amount") +"<br><br> <html>";
                 List.add(data);
             }
 
-// Reverse order printing
+            // Reverse order printing
             int n = List.size();
             for (int i = n - 1; i >= 0 ; i--) {
                 mini.setText(mini.getText() + List.get(i));
-                mini.repaint();;
+                mini.repaint();
             }
 
         } catch (Exception e){
             System.out.println(e);
         }
-
-        acccBalance = new JLabel();
-        acccBalance.setBounds(70 , 500 , 250 , 40);
-        acccBalance.setFont(new Font("System" ,Font.PLAIN , 15));
-        acccBalance.setForeground(Color.BLACK);
-        image.add(acccBalance);
 
         try{
             Connect c = new Connect();
@@ -159,7 +157,9 @@ public class Account extends JFrame implements ActionListener {
                 balance = rs.getInt("balance");
             }
 
-            acccBalance.setText("Your account balance is "+ balance);
+            mini.setText(mini.getText() + "Your account balance is "+ balance);
+            mini.repaint();
+
         } catch (Exception e){
             System.out.println(e);
         }
@@ -192,6 +192,8 @@ public class Account extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == back){
+
+            logger.info("User navigating back to Home. Card Number: {}", cardNumber);
             new Home(pinNumber , cardNumber);
             setVisible(false);
         }else if(ae.getSource() == accTranSubmit){
@@ -201,14 +203,19 @@ public class Account extends JFrame implements ActionListener {
 
             try{
                 if(toAccount.equals("") || amount.equals("")){
+                    logger.warn("Transaction failed: Required fields missing. Card Number: {}", cardNumber);
                     JOptionPane.showMessageDialog(null , "All fields are required");
                 } else if (!pin.equals(pinNumber)) {
+                    logger.warn("Transaction failed: Incorrect PIN entered. Card Number: {}", cardNumber);
                     JOptionPane.showMessageDialog(null , "Incoreect Pin ");
                 } else if (!checkAcc(toAccount)) {
+                    logger.warn("Transaction failed: Invalid recipient card number. Card Number: {}", cardNumber);
                     JOptionPane.showMessageDialog(null , "Incoreect / Invalid CardNumber ");
                 }else if (toAccount.equals(cardNumber)){
+                    logger.warn("Transaction failed: Attempt to transfer to the same account. Card Number: {}", cardNumber);
                     JOptionPane.showMessageDialog(null , "Cant transfer to the same cardNumber ");
                 } else if (!isValidAmount(amount)) {
+                    logger.warn("Transaction failed: Invalid transfer amount. Card Number: {}", cardNumber);
                     JOptionPane.showMessageDialog(null , "Enter a valid amount");
                 } else{
                     Connect c = new Connect();
@@ -219,31 +226,38 @@ public class Account extends JFrame implements ActionListener {
                     }
 
                     if(balance < Integer.parseInt(amount)){
+                        logger.warn("Transaction failed: Insufficient balance. Card Number: {}", cardNumber);
                         JOptionPane.showMessageDialog(null , "Insufficient balance ");
                     }else{
-                        Date date = new Date();
-                        String query1 = "INSERT INTO bank VALUES('"+cardNumber+"' , '"+pin+"' , '"+date+"' , 'Withdrawl' , '"+amount+"')";
+                        LocalDate date = LocalDate.now();
+                        logger.info("Transaction initiated: Withdrawing Rs {} from Card Number: {}", amount, cardNumber);
+                        String query1 = "INSERT INTO bank VALUES('"+cardNumber+"' , '"+pin+"' , '"+date+"' , 'Acc Transfer' , '"+amount+"')";
                         c.s.executeUpdate(query1);
-                        JOptionPane.showMessageDialog(null , "Rs "+amount+" Transferred successfully");
 
                         double amountNum = Integer.parseInt(amount) ;
                         String query2 = "UPDATE login SET balance = balance - '"+ amountNum + "' WHERE cardNumber = '"+cardNumber+"' AND pin = '"+pinNumber+"' ;";
                         c.s.executeUpdate(query2);
+                        logger.info("Rs {} successfully withdrawn from Card Number: {}", amount, cardNumber);
 
                         String query3 = "SELECT pin FROM login WHERE cardNumber = '"+toAccount+"'" ;
                         ResultSet rs2 = c.s.executeQuery(query3);
                         if (rs2.next()) { // Check if a result is found
                             toPin = rs2.getString("pin"); // Get the PIN value from the "pin" column
-                            String query4 = "INSERT INTO bank VALUES('"+toAccount+"' , '"+toPin+"' , '"+date+"' , 'Deposit' , '"+amount+"')";
+                            logger.info("Transaction initiated: Depositing Rs {} to Card Number: {}", amount, toAccount);
+                            String query4 = "INSERT INTO bank VALUES('"+toAccount+"' , '"+toPin+"' , '"+date+"' , 'Acc Transfer' , '"+amount+"')";
                             c.s.executeUpdate(query4);
 
                             String query5 = "UPDATE login SET balance = balance + '"+ amountNum + "' WHERE cardNumber = '"+toAccount+"' AND pin = '"+toPin+"' ;";
                             c.s.executeUpdate(query5);
+                            JOptionPane.showMessageDialog(null , "Rs "+amount+" Transferred successfully");
+                            logger.info("Rs {} successfully deposited to Card Number: {}", amount, toAccount);
 
                         } else {
+                            logger.warn("Transaction failed: Invalid recipient account number. Card Number: {}", toAccount);
                             JOptionPane.showMessageDialog(null, "Invalid account number");
                         }
                     }
+                    logger.info("Transaction complete for Card Number: {}", cardNumber);
                     new Home(pinNumber , cardNumber);
                     setVisible(false);
 
@@ -251,6 +265,7 @@ public class Account extends JFrame implements ActionListener {
                 };
 
             } catch (Exception e){
+                logger.error("Transaction error occurred for Card Number: {}. Error: {}", cardNumber, e.getMessage());
                 System.out.println(e);
 
             }
@@ -259,7 +274,7 @@ public class Account extends JFrame implements ActionListener {
             accTran1.setText("");
             accTran2.setText("");
             accTran3.setText("");
-            return;
+            logger.info("Transaction form cleared. Card Number: {}", cardNumber);
         }
     }
 

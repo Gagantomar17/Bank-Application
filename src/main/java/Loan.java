@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.regex.Pattern;
 
 public class Loan extends JFrame implements ActionListener {
 
@@ -19,7 +20,7 @@ public class Loan extends JFrame implements ActionListener {
     Loan(String pinNumber , String cardNumber){
         this.pinNumber = pinNumber ;
         this.cardNumber = cardNumber ;
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +44,7 @@ public class Loan extends JFrame implements ActionListener {
         logoImage.setBounds(20, 20, 65, 65);
         image.add(logoImage);
 
-        heading = new JLabel("Lena Dena Bank Pvt Ltd");
+        heading = new JLabel("Finance Capital Pvt Ltd");
         heading.setBounds(280, 20, 500, 50);
         heading.setFont(new Font("Aerial", Font.BOLD, 40));
         heading.setForeground(Color.WHITE);
@@ -176,26 +177,30 @@ public class Loan extends JFrame implements ActionListener {
             }
 
             String num1 = amountText.getText();
-            enteredAmount = Integer.parseInt(num1);
-            String num2 = ((String) tenureText.getSelectedItem()).split(" ")[0];
-            selectedTenure = Integer.parseInt(num2);// Extract numeric value from "X years"re
-            if(loanTypeText.equals("") || num1.equals("") || num2.equals("") ){
-                JOptionPane.showMessageDialog(null , "All fields are requires");
-
+            if(!isValidAmount(num1)){
+                JOptionPane.showMessageDialog(null , " Invalid amount entered ");
             }else{
-                if(selectedTenure == 1){
-                    interestRate = 5 ;
-                }else if(selectedTenure == 2){
-                    interestRate = 5.5 ;
-                }else if (selectedTenure == 3){
-                    interestRate = 6 ;
-                }else if(selectedTenure == 4){
-                    interestRate = 6.5 ;
-                }else if(selectedTenure == 5){
-                    interestRate = 7 ;
-                }else if(selectedTenure == 10){
-                    interestRate = 10 ;
-                }
+                enteredAmount = Integer.parseInt(num1);
+                String num2 = ((String) tenureText.getSelectedItem()).split(" ")[0];
+                selectedTenure = Integer.parseInt(num2);// Extract numeric value from "X years"re
+                if(loanTypeText.equals("") || num1.equals("") || num2.equals("") ){
+                    JOptionPane.showMessageDialog(null , "All fields are requires");
+
+                }else{
+                    if(selectedTenure == 1){
+                        interestRate = 5 ;
+                    }else if(selectedTenure == 2){
+                        interestRate = 5.5 ;
+                    }else if (selectedTenure == 3){
+                        interestRate = 6 ;
+                    }else if(selectedTenure == 4){
+                        interestRate = 6.5 ;
+                    }else if(selectedTenure == 5){
+                        interestRate = 7 ;
+                    }else if(selectedTenure == 10){
+                        interestRate = 10 ;
+                    }
+            }
 
                 interestLabel.setText("Interest Rate: " + interestRate + " %");
                 interest = calculateInterest(enteredAmount, selectedTenure , interestRate);
@@ -231,6 +236,12 @@ public class Loan extends JFrame implements ActionListener {
             new Home(pinNumber , cardNumber);
             setVisible(false);
         }
+    }
+
+    private boolean isValidAmount(String input) {
+        // non-negative and non-zero number
+        String regex = "^[1-9]\\d*$";
+        return Pattern.matches(regex, input);
     }
 
 

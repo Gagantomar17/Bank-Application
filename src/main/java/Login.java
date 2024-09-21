@@ -3,15 +3,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Login extends JFrame implements ActionListener {
 
+    private static final Logger logger = LogManager.getLogger(Login.class);
     private JButton login , signUp , clear ;
-    private JLabel heading , name , password , image , logoImage ;
+    private JLabel heading , name , password , image , logoImage  ;
     private JTextField cardNum , pinNum ;
 
     public Login(){
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(700 , 400);
         setLocation(350 , 100 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,7 +41,7 @@ public class Login extends JFrame implements ActionListener {
         logoImage.setBounds(10 , 10 , 50 , 50);
         image.add(logoImage);
 
-        heading = new JLabel("Lena Dena Bank Pvt Ltd");
+        heading = new JLabel(" Finance Capital Pvt Ltd ");
         heading.setBounds(200 , 40 , 500 , 40);
         heading.setFont(new Font("Aerial" , Font.BOLD , 25));
         heading.setForeground(Color.WHITE);
@@ -97,24 +100,31 @@ public class Login extends JFrame implements ActionListener {
             String cardNumber = cardNum.getText();
             String pinNumber = pinNum.getText();
             String query = ("SELECT *FROM login where cardNumber = '"+cardNumber+"' and pin = '"+pinNumber+"' ");
+
+            logger.info("Login attempt with card number: {}", cardNumber);
+
             try{
                 ResultSet rs =  c.s.executeQuery(query);
                 if(rs.next()){
+                    logger.info("Successful login for card number: {}", cardNumber);
                     new Home(pinNumber , cardNumber);
                     setVisible(false);
                 }else{
+                    logger.warn("Failed login attempt. Incorrect card number or PIN for card number: {}", cardNumber);
                     JOptionPane.showMessageDialog(null , "Incorrect card no or pin ");
                 }
             } catch (Exception e){
+                logger.error("Error during login attempt with card number: {}", cardNumber, e);
                 System.out.println(e);
             }
         }else if(ae.getSource()==signUp){
+            logger.info("Sign-up button clicked. Opening SignUpOne form.");
             new SignUpOne();
             setVisible(false);
         }else if(ae.getSource() == clear){
+            logger.info("Clear button clicked. Clearing input fields.");
             cardNum.setText("");
             pinNum.setText("");
-            return;
         }
     }
 

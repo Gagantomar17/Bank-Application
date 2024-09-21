@@ -3,8 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SignUpTwo extends JFrame implements ActionListener {
+
+    private static final Logger logger = LogManager.getLogger(SignUpTwo.class);
     private JButton next, cancel ;
     private JRadioButton yes , no;
     private JLabel heading1 ,formNo , heading2, religion, category, income, edu,
@@ -14,7 +18,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
     private String formNum ;
     public SignUpTwo(String formNum){
         this.formNum = formNum ;
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000 , 700);
         setLocation(250 , 50 );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,6 +131,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
 
         panText = new JTextField();
         panText.setBounds(300 , 370 , 400 , 25);
+        panText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(panText);
 
         adhar = new JLabel("Aadhar Number:");
@@ -137,6 +142,7 @@ public class SignUpTwo extends JFrame implements ActionListener {
 
         adharText = new JTextField();
         adharText.setBounds(300 , 410 , 400 , 25);
+        adharText.setFont(new Font("Aerial" , Font.BOLD , 17));
         image.add(adharText);
 
         senior = new JLabel("Senior Citizen:");
@@ -197,25 +203,34 @@ public class SignUpTwo extends JFrame implements ActionListener {
             String span = panText.getText();
             String sadhar = adharText.getText();
 
+            logger.info("Processing sign-up form 2 with form number: {}", formNum);
+
             try {
                 if(sreligion.equals("") || scategory.equals("") || sincome.equals("") || sedu.equals("") || soccupation.equals("") || span.equals("") || sadhar.equals("")){
+                    logger.warn("Form submission incomplete for form number: {}", formNum);
                     JOptionPane.showMessageDialog(null,"All fields are required");
                 } else if (!isValidNumber(sadhar)) {
+                    logger.warn("Invalid Aadhaar number entered for form number: {}", formNum);
                     JOptionPane.showMessageDialog(null,"enter a valid Adhar Number");
                 } else if (!isValidPan(span)) {
+                    logger.warn("Invalid PAN number entered for form number: {}", formNum);
                     JOptionPane.showMessageDialog(null,"enter a valid Pan number");
                 } else{
                     Connect c = new Connect();
                     String query = "INSERT INTO signuptwo VALUES('" + formNum +"' , '" + sreligion + "', '" + scategory + "', '" + sincome + "', '" + sedu + "', '" + soccupation + "', '" + span + "', '" + sadhar + "', '" + senior + "')";
                     c.s.executeUpdate(query);
+                    logger.info("Sign-up form 2 successfully submitted with form number: {}", formNum);
                     new SignUpThree(formNum) ;
                     setVisible(false);
                 }
             } catch(Exception e){
+                logger.error("Error during sign-up form 2 submission for form number: {}", formNum, e);
+                JOptionPane.showMessageDialog(null,"Error "+ e.getMessage());
                 System.out.println(e.getMessage());
                 System.out.println(e);
             }
         }else if(ae.getSource()==cancel){
+            logger.info("sign-up form 2 submission canceled for form number: {}", formNum);
             new Login();
             setVisible(false);
         }

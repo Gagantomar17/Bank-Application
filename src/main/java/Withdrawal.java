@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class  Withdrawal extends JFrame implements ActionListener {
@@ -74,7 +74,7 @@ public class  Withdrawal extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null , "Insufficient balance ");
 
                     }else{
-                        Date date = new Date();
+                        LocalDate date = LocalDate.now();
                         String query1 = "INSERT INTO bank VALUES('"+cardNumber+"' , '"+pinNumber+"' , '"+date+"' , 'Withdrawl' , '"+amount+"')";
                         c.s.executeUpdate(query1);
                         int amountNum = Integer.parseInt(amount);

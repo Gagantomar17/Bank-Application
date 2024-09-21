@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ManagerDashboard extends JFrame implements ActionListener , MouseListener {
     private JLabel loanTableLabel , topRichest , totalUsersLabel, logoImage, heading , topRichestLabel , userDetails , image , totalDepositsLabel ;
@@ -17,7 +17,7 @@ public class ManagerDashboard extends JFrame implements ActionListener , MouseLi
 
     ManagerDashboard() {
 
-        setTitle("Lena Dena Bank Pvt Ltd");
+        setTitle("Finance Capital Pvt Ltd");
         setSize(1000, 700);
         setLocation(250, 50);
         setUndecorated(true);
@@ -42,7 +42,7 @@ public class ManagerDashboard extends JFrame implements ActionListener , MouseLi
         logoImage.setBounds(10, 10, 80, 80);
         image.add(logoImage);
 
-        heading = new JLabel("Lena Dena Bank Pvt Ltd");
+        heading = new JLabel("Finance Capital Pvt Ltd");
         heading.setBounds(280, 20, 500, 50);
         heading.setFont(new Font("Aerial", Font.BOLD, 40));
         heading.setForeground(Color.WHITE);
@@ -339,7 +339,7 @@ public class ManagerDashboard extends JFrame implements ActionListener , MouseLi
     public void transferMoney(double amount , String cardNumber){
         try{
             Connect c = new Connect();
-            Date date = new Date();
+            LocalDate date = LocalDate.now();
 
             String query3 = "SELECT * FROM login WHERE cardNumber = '"+cardNumber+"' " ;
             ResultSet rs = c.s.executeQuery(query3);
