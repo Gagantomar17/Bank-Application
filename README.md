@@ -1,6 +1,6 @@
 # Bank Application
 
-This project is a comprehensive bank application developed using Java Swing and JDBC. The application includes various features such as user login and signup, ATM services, account transfers, loan management, deposits, and a manager dashboard for reviewing and approving or declining requests.
+This project is a comprehensive bank application developed using Java Swing and JDBC. It includes robust banking services such as user login and signup, ATM services, account transfers, loan management, deposits, stock investments, and a manager dashboard for handling user activities and approving/rejecting loan requests.
 
 ## Table of Contents
 
@@ -10,6 +10,7 @@ This project is a comprehensive bank application developed using Java Swing and 
   - [Account Transfers](#account-transfers)
   - [Loans](#loans)
   - [Deposits](#deposits)
+  - [Investments](#investments)
   - [Manager Dashboard](#manager-dashboard)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -20,42 +21,39 @@ This project is a comprehensive bank application developed using Java Swing and 
 
 ### Login and Signup
 
-1. **User Signup**: New users can create an account by providing their personal details such as name, email, phone number, and password. The application validates the input data and stores the user information securely in the database.
-2. **User Login**: Registered users can log in by entering their username and password. The application authenticates the user credentials and grants access to the user dashboard.
+1. **User Signup**: Secure sign-up process where users provide personal details. All data is validated and securely stored in the database.
+2. **User Login**: Fast and secure authentication using a username and password, with access control for the user dashboard.
 
 ### ATM Services
 
-1. **Fast Cash**: Users can quickly withdraw a pre-defined amount of cash (e.g., $50, $100, $200) without needing to specify the amount each time.
-2. **Cash Withdrawal**: Users can withdraw cash from their account by entering the amount they wish to withdraw. The application checks for sufficient balance before processing the withdrawal.
-3. **PIN Change**: Users can change their ATM PIN for added security.
-4. **Mini Statement**: Users can view a mini statement that shows the last few transactions on their account.
+1. **Fast Cash**: Allows users to withdraw predefined cash amounts ($50, $100, $200) instantly.
+2. **Cash Withdrawal**: Users can withdraw any specific amount, with automatic balance checks.
+3. **PIN Change**: Allows users to securely change their ATM PIN.
+4. **Mini Statement**: Displays recent transactions for user accounts.
 
 ### Account Transfers
 
-1. **Fund Transfer**: Users can transfer funds from their account to another user's account by entering the recipient's account details and the transfer amount. The application ensures the sender has sufficient balance before processing the transfer.
-2. **Transfer History**: Users can view their past account transfers, including the recipient details and the amounts transferred.
+1. **Fund Transfer**: Enables users to transfer funds between accounts with verification for sufficient balance.
+2. **Transfer History**: Provides a comprehensive view of past transfers, including recipient details and amounts.
 
 ### Loans
 
-1. **Loan Application**: Users can apply for different types of loans by entering the loan amount, selecting the loan type (e.g., personal loan, home loan), and specifying the loan duration.
-2. **Interest Calculation**: The application calculates the interest based on the loan type and duration and displays it to the user before submission.
-3. **Document Submission**: Users can upload necessary documents required for the loan application.
-4. **Loan Request Submission**: Users can submit the loan request for review.
+1. **Loan Application**: Supports applying for various loan types (e.g., personal, home loans), with configurable loan durations.
+2. **Interest Calculation**: Automatic calculation of interest rates based on loan type and duration.
+3. **Loan Request Submission**: Users can submit loan requests for manager review and approval.
 
 ### Deposits
 
-1. **Deposit Funds**: Users can deposit funds into their account by entering the deposit amount. The application updates the account balance accordingly.
-2. **Deposit History**: Users can view their past deposits, including the amounts and dates of the deposits.
+1. **Fixed Deposits (FD)**: Users can invest in Fixed Deposit schemes, choosing the tenure and receiving competitive interest rates.
+2. **Stocks Investment**: Now integrated with real-time stock market data via an external API, allowing users to invest in various stocks. The system supports investments in both US and Indian stock markets, with real-time price updates and portfolio management.
+3. **Portfolio Overview**: Users can track and manage their stock investments, view real-time performance, and get detailed insights into their portfolio.
 
 ### Manager Dashboard
 
-1. **Dashboard Access**: Managers have access to a dedicated dashboard where they can view all loan requests, account transfers, and deposits.
-2. **Review Loan Requests**: Managers can review submitted loan requests, including the amount, duration, interest calculated, and submitted documents.
-3. **Approve or Decline Loans**: Managers can approve or decline loan requests based on their review.
-4. **View User Details**: Managers can view details of every user, including personal information and account activities.
-5. **Total Active Users**: Managers can view the total number of active users in the system.
-6. **Top Richest Users**: Managers can view a list of the top richest users based on their account balance.
-7. **Total Amount Deposited**: Managers can view the total amount deposited across all user accounts.
+1. **Loan Review**: Managers can review loan applications, check supporting documentation, and either approve or reject requests.
+2. **User Management**: View all registered users and their activity, including loans, transfers, and deposits.
+3. **Top Users**: The dashboard provides insights into top users based on account balances.
+4. **System Overview**: Managers can view statistics, such as total active users and the total amount deposited.
 
 ## Installation
 
@@ -64,6 +62,7 @@ This project is a comprehensive bank application developed using Java Swing and 
 - Java Development Kit (JDK) 8 or higher
 - MySQL Database
 - JDBC Driver for MySQL
+- (For Stock Investments) API keys for integrated stock market data providers (Alpha Vantage or similar)
 
 ### Steps
 
